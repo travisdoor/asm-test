@@ -1,20 +1,20 @@
-_CRT_INIT   proto
 ;-------------------------------------------------------------------------------
 ; Experimental program reading the input and printing out in loop.
 ;-------------------------------------------------------------------------------
 
+_CRT_INIT   proto
 ExitProcess proto
 printf      proto
 scanf       proto
 
-;-------------------------------------------------------------------------------
+;- DATA ------------------------------------------------------------------------
 .data
 
 get_chars_msg db "Insert number: ", 0
 msg           db "i = %d", 0Ah, 0
 scan_str      db "%d", 0
 
-;-------------------------------------------------------------------------------
+;- CODE ------------------------------------------------------------------------
 .code
 
 ;- main ------------------------------------------------------------------------
@@ -46,7 +46,6 @@ main proc
 	add     rsp, 20h
 	ret
 main endp
-;-------------------------------------------------------------------------------
 
 ;- print_hello -----------------------------------------------------------------
 ; ecx - count of hello messages
@@ -79,10 +78,8 @@ _next:
 
 _done:
 	xor     eax, eax
-	; clanup local variables
-	add     rsp, 10h
-
-	add     rsp, 20h
+	add     rsp, 10h ; cleanup local variables
+	add     rsp, 20h ; cleanup shadow space
 	pop     rbp
 	ret
 print_hello endp
